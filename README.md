@@ -303,13 +303,13 @@ $$
 The ammonia storage balance is:
 
 $$
-NH_{3,initial}
+NH_{3,\mathrm{initial}}
 +
-NH_{3,produced}
+NH_{3,\mathrm{produced}}
 -
-NH_{3,discharged}
+NH_{3,\mathrm{discharged}}
 -
-NH_{3,final}
+NH_{3,\mathrm{final}}
 =
 0
 $$
