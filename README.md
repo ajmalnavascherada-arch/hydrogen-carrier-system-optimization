@@ -135,18 +135,17 @@ The hydrogen production rate is determined from the electrical input and electro
 A simplified energy relationship is:
 
 $$
-\dot{m}_{H_2}
-=
-\frac{P_{el}\eta_{el}}
-{LHV_{H_2}}
+\dot{m}_{H_2} = \frac{P_{el}\eta_{el}}{LHV_{H_2}}
 $$
 
 where:
 
-* \(P_{el}\) = electrolyzer electrical power
-* \(\eta_{el}\) = electrolyzer efficiency
-* \(LHV_{H_2}\) = hydrogen lower heating value
-* \(\dot{m}_{H_2}\) = hydrogen production rate
+- $P_{el}$ = electrolyzer electrical power
+- $\eta_{el}$ = electrolyzer efficiency
+- $LHV_{H_2}$ = hydrogen lower heating value
+- $\dot{m}_{H_2}$ = hydrogen production rate
+
+
 
 ---
 
@@ -164,16 +163,9 @@ The demand model allows the simulation to evaluate:
 
 The main performance metric is:
 
-$$
-\text{H}_2\text{ Coverage}
-=
-\left(
-1-
-\frac{\text{Unmet H}_2}
-{\text{Total H}_2\text{ Demand}}
-\right)
-\times 100
-$$
+
+
+**H₂ Coverage (%) = (1 − Unmet H₂ / Total H₂ Demand) × 100**
 
 ---
 
@@ -284,17 +276,7 @@ The hydrogen balance accounts for:
 
 The implementation checks:
 
-$$
-H_{2,produced}
--
-H_{2,direct}
--
-H_{2,NH_3}
--
-H_{2,unused}
-=
-0
-$$
+**H₂ produced − H₂ direct − H₂ used for NH₃ − H₂ unused = 0** 
 
 ---
 
@@ -302,17 +284,9 @@ $$
 
 The ammonia storage balance is:
 
-$$
-NH_{3,\mathrm{initial}}
-+
-NH_{3,\mathrm{produced}}
--
-NH_{3,\mathrm{discharged}}
--
-NH_{3,\mathrm{final}}
-=
-0
-$$
+
+
+**NH₃ initial + NH₃ produced − NH₃ discharged − NH₃ final = 0**
 
 This ensures that ammonia inventory is conserved throughout the simulation.
 
@@ -329,17 +303,7 @@ The renewable electricity balance accounts for:
 
 The model verifies:
 
-$$
-E_{renewable}
-=
-E_{electrolyzer}
-+
-E_{synthesis}
-+
-E_{cracking}
-+
-E_{curtailed}
-$$
+**Renewable Energy = Electrolyzer Energy + NH₃ Synthesis Energy + NH₃ Cracking Energy + Curtailed Energy**
 
 These checks are important because optimization results are only meaningful if the underlying dynamic model remains physically consistent.
 
@@ -401,11 +365,11 @@ $$
 
 where:
 
-* \(U_{H_2}\) = unmet hydrogen demand
-* \(D_{NH_3}\) = depletion of the initial ammonia inventory
-* \(E_{curtail}\) = curtailed renewable energy
-* \(E_{process}\) = process energy consumption
-* \(w_i\) = objective-function weighting factors
+- $$U_{H_2}$$ = unmet hydrogen demand
+- $$D_{NH_3}$$ = depletion of the initial ammonia inventory
+- $$E_{curtail}$$ = curtailed renewable energy
+- $$E_{process}$$ = process energy consumption
+- $$w_{i}$$ = objective-function weighting factors
 
 The optimization uses **SciPy SLSQP** with physically meaningful electrolyzer power bounds.
 
@@ -538,58 +502,7 @@ hydrogen-carrier-system-optimization/
 
 ---
 
-# Installation
 
-Clone the repository:
-
-```bash
-git clone https://github.com/ajmalnavascherada-arch/hydrogen-carrier-system-optimization.git
-cd hydrogen-carrier-system-optimization
-```
-
-Create a virtual environment:
-
-### Windows
-
-```powershell
-python -m venv .venv
-.venv\Scripts\activate
-```
-
-### Linux/macOS
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-pip install -r requirements.txt
-```
-
----
-
-# Running the Model
-
-## Run the dynamic simulation
-
-From the project root:
-
-```bash
-python analysis/run_simulation.py
-```
-
-This runs the baseline dynamic system model and performs the mass and energy balance checks.
-
----
-
-## Run the optimization
-
-```bash
-python analysis/run_optimization.py
-```
 
 The optimization workflow:
 
